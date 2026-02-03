@@ -9,7 +9,7 @@ public class Main {
         Box box = new Box();
 
         for(int i=0;i<5;i++){
-            Producer p = new Producer(box, 4);
+            Producer p = new Producer(box);
             Thread t1 = new Thread(p);
             t1.start();
         }

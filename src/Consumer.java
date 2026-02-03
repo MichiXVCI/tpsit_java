@@ -1,28 +1,17 @@
 public class Consumer implements Runnable {
-    private final Box box;
+    private final Box coda;
 
-    public Consumer(Box box){
-        this.box = box;
+    public Consumer(Box coda) {
+        this.coda = coda;
     }
     @Override
-    public void run(){
-
-        for(int i=0;i<20;i++){
-
-            try {
-                box.semaphore_consumer.acquire(); //aspetta che il producer finisca
-
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+    public void run() {
+        try {
+            while (true) {
+                coda.consuma();
             }
-
-            //Per controllare se il producer aspetta che il consumer prelevi il valore dalla scatola
-
-            System.out.println("Consumer: "+ Box.scatola);
-            System.out.println();
-
-            box.semaphore_producer.release(); //dice al producer che ha finito di usare scatola
-
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }
